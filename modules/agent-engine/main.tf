@@ -20,10 +20,22 @@ resource "google_vertex_ai_reasoning_engine" "app" {
 
       resource_limits = { cpu = "4", memory = "8Gi" }
 
-      env { name = "LOGS_BUCKET_NAME",                                value = var.logs_bucket_name }
-      env { name = "LINKEDIN_MCP_URL",                                value = var.linkedin_mcp_url }
-      env { name = "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT", value = "true" }
-      env { name = "GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY",       value = "true" }
+      env {
+        name  = "LOGS_BUCKET_NAME"
+        value = var.logs_bucket_name
+      }
+      env {
+        name  = "LINKEDIN_MCP_URL"
+        value = var.linkedin_mcp_url
+      }
+      env {
+        name  = "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT"
+        value = "true"
+      }
+      env {
+        name  = "GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY"
+        value = "true"
+      }
     }
 
     source_code_spec {

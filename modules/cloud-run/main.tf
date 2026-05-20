@@ -26,7 +26,9 @@ resource "google_artifact_registry_repository_iam_member" "app_reader" {
 resource "google_secret_manager_secret" "linkedin_token" {
   project   = var.project_id
   secret_id = "linkedin-access-token"
-  replication { auto {} }
+  replication {
+    auto {}
+  }
 }
 
 resource "google_secret_manager_secret_version" "linkedin_token_placeholder" {
