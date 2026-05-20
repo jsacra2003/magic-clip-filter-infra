@@ -1,0 +1,6 @@
+project_id             = "ge-bootcamp26lis-902"
+region                 = "europe-west1"
+app_repository_owner   = "jsacra2003"
+app_repository_name    = "magic-clip-filter"
+infra_repository_owner = "jsacra2003"
+infra_repository_name  = "magic-clip-filter-infra"

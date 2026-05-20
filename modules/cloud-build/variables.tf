@@ -1,0 +1,14 @@
+variable "project_id"             { type = string }
+variable "project_name"           { type = string }
+variable "region"                 { type = string }
+variable "project_number"         { type = string }
+variable "cicd_sa_id"             { type = string }
+variable "cicd_sa_email"          { type = string }
+variable "app_sa_email"           { type = string }
+variable "logs_bucket_name"       { type = string }
+variable "tfstate_bucket_name"    { type = string }
+variable "github_pat_secret_id"   { type = string }
+variable "app_repository_owner"   { type = string }
+variable "app_repository_name"    { type = string }
+variable "infra_repository_owner" { type = string }
+variable "infra_repository_name"  { type = string }

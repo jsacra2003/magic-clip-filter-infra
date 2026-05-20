@@ -1,0 +1,49 @@
+# Triggered on pull requests to the infra repo.
+# Runs terraform plan and stores the plan artifact in GCS for review.
+steps:
+  - name: "hashicorp/terraform:1.9"
+    id: tf-init
+    entrypoint: terraform
+    args:
+      - init
+      - "-backend-config=bucket=${_TF_STATE_BUCKET}"
+      - "-backend-config=prefix=${_TF_STATE_PREFIX}"
+      - "-input=false"
+    dir: "environments/${_ENV}"
+
+  - name: "hashicorp/terraform:1.9"
+    id: tf-validate
+    entrypoint: terraform
+    args: [validate]
+    dir: "environments/${_ENV}"
+    waitFor: ["tf-init"]
+
+  - name: "hashicorp/terraform:1.9"
+    id: tf-plan
+    entrypoint: terraform
+    args:
+      - plan
+      - "-input=false"
+      - "-lock-timeout=300s"
+      - "-out=/workspace/tfplan"
+    dir: "environments/${_ENV}"
+    waitFor: ["tf-validate"]
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: store-plan
+    entrypoint: gsutil
+    args:
+      - cp
+      - /workspace/tfplan
+      - "gs://${_TF_STATE_BUCKET}/plans/${BUILD_ID}/tfplan"
+    waitFor: ["tf-plan"]
+
+substitutions:
+  _ENV: dev
+  _TF_STATE_BUCKET: ""
+  _TF_STATE_PREFIX: magic-clip-filter/dev
+
+logsBucket: "gs://${_TF_STATE_BUCKET}/build-logs"
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+  substitutionOption: ALLOW_LOOSE
