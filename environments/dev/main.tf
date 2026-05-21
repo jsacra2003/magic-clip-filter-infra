@@ -37,15 +37,24 @@ module "cloud_run" {
   depends_on    = [module.apis, module.iam]
 }
 
+module "model_armor" {
+  source       = "../../modules/model-armor"
+  project_id   = var.project_id
+  project_name = var.project_name
+  region       = var.region
+  depends_on   = [module.apis]
+}
+
 module "agent_engine" {
-  source           = "../../modules/agent-engine"
-  project_id       = var.project_id
-  project_name     = var.project_name
-  region           = var.region
-  app_sa_email     = module.iam.app_sa_email
-  logs_bucket_name = module.storage.logs_bucket_name
-  linkedin_mcp_url = module.cloud_run.linkedin_mcp_url
-  depends_on       = [module.apis, module.iam, module.storage, module.cloud_run]
+  source                    = "../../modules/agent-engine"
+  project_id                = var.project_id
+  project_name              = var.project_name
+  region                    = var.region
+  app_sa_email              = module.iam.app_sa_email
+  logs_bucket_name          = module.storage.logs_bucket_name
+  linkedin_mcp_url          = module.cloud_run.linkedin_mcp_url
+  model_armor_template_name = module.model_armor.template_name
+  depends_on                = [module.apis, module.iam, module.storage, module.cloud_run, module.model_armor]
 }
 
 module "cloud_build" {

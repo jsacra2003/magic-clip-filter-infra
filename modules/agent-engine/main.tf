@@ -36,6 +36,10 @@ resource "google_vertex_ai_reasoning_engine" "app" {
         name  = "GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY"
         value = "true"
       }
+      env {
+        name  = "MODEL_ARMOR_TEMPLATE_NAME"
+        value = var.model_armor_template_name
+      }
     }
 
     source_code_spec {

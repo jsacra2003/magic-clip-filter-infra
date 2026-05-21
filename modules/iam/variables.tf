@@ -22,6 +22,7 @@ variable "app_sa_roles" {
     "roles/cloudtrace.agent",
     "roles/datastore.user",
     "roles/logging.logWriter",
+    "roles/modelarmor.user",
     "roles/secretmanager.secretAccessor",
     "roles/serviceusage.serviceUsageConsumer",
     "roles/storage.admin",

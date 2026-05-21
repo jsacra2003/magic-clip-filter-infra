@@ -11,6 +11,7 @@ locals {
     "logging.googleapis.com",
     "cloudtrace.googleapis.com",
     "run.googleapis.com",
+    "modelarmor.googleapis.com",
     "secretmanager.googleapis.com",
     "serviceusage.googleapis.com",
     "telemetry.googleapis.com",
