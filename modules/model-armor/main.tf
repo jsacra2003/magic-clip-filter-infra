@@ -4,6 +4,11 @@ resource "google_model_armor_template" "default" {
   location    = var.region
   project     = var.project_id
 
+  template_metadata {
+    log_template_operations = false
+    log_sanitize_operations = false
+  }
+
   filter_config {
     # Block prompt injection and jailbreak attempts at lowest detection threshold
     pi_and_jailbreak_filter_settings {
