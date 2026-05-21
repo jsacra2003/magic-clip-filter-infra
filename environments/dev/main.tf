@@ -45,17 +45,20 @@ module "model_armor" {
   depends_on   = [module.apis]
 }
 
-module "agent_engine" {
-  source                    = "../../modules/agent-engine"
-  project_id                = var.project_id
-  project_name              = var.project_name
-  region                    = var.region
-  app_sa_email              = module.iam.app_sa_email
-  logs_bucket_name          = module.storage.logs_bucket_name
-  linkedin_mcp_url          = module.cloud_run.linkedin_mcp_url
-  model_armor_template_name = module.model_armor.template_name
-  depends_on                = [module.apis, module.iam, module.storage, module.cloud_run, module.model_armor]
-}
+# module "agent_engine" is intentionally excluded from Terraform.
+# The Agent Engine requires real application code to start successfully.
+# Deploy it from the app repo: cd ../magic-clip-filter && make deploy
+# module "agent_engine" {
+#   source                    = "../../modules/agent-engine"
+#   project_id                = var.project_id
+#   project_name              = var.project_name
+#   region                    = var.region
+#   app_sa_email              = module.iam.app_sa_email
+#   logs_bucket_name          = module.storage.logs_bucket_name
+#   linkedin_mcp_url          = module.cloud_run.linkedin_mcp_url
+#   model_armor_template_name = module.model_armor.template_name
+#   depends_on                = [module.apis, module.iam, module.storage, module.cloud_run, module.model_armor]
+# }
 
 # module "cloud_build" {
 #   source                 = "../../modules/cloud-build"
