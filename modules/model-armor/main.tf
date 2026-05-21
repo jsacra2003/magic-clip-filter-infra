@@ -15,7 +15,7 @@ resource "google_model_armor_template" "default" {
     rai_settings {
       rai_filters {
         filter_type      = "DANGEROUS"
-        confidence_level = "HIGH_AND_ABOVE"
+        confidence_level = "HIGH"
       }
       rai_filters {
         filter_type      = "HATE_SPEECH"
